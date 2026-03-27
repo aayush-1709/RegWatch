@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Next 16 defaults to Turbopack in production builds (e.g., Vercel).
+  // Adding an explicit empty config avoids webpack/turbopack mismatch errors.
+  turbopack: {},
   webpack: (config, { dev }) => {
     if (dev) {
       config.watchOptions = {
