@@ -1,0 +1,21 @@
+Company Policy - Digital Lending (Demo)
+
+1) Loan Limits
+- Maximum loan amount allowed per borrower: Rs 5,00,000
+- Loans above Rs 3,00,000 require manual approval
+
+2) KYC Process
+- Aadhaar OTP-based eKYC is used for onboarding
+- No mandatory video KYC workflow is configured
+
+3) Interest and Pricing
+- Standard annual interest rate configured at 24%
+- Risk-based pricing exceptions are not enabled
+
+4) Compliance Operations
+- Regulatory updates are reviewed weekly by compliance team
+- Engineering changes are released in a bi-weekly sprint cycle
+
+5) Customer Communication
+- Key loan terms are shared via email and app notification
+- Vernacular communication support is currently partial

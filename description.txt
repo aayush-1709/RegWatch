@@ -1,0 +1,235 @@
+## RegWatch Backend — Agentic AI Architecture
+
+### Overview
+
+The RegWatch backend is an **agentic AI-driven compliance intelligence system** built using FastAPI and Google Gemini. It operates as a multi-agent pipeline that autonomously detects regulatory updates, interprets their impact, compares them with internal company policies, and generates actionable compliance plans with full audit traceability.
+
+The system is designed to simulate a real-world enterprise compliance engine, combining **automation, reasoning, and decision-making** into a unified backend.
+
+---
+
+## Core Design Philosophy
+
+* **Agent-based architecture** instead of monolithic logic
+* **Event-driven ingestion** using n8n (simulated real-time updates)
+* **LLM-powered reasoning** via Gemini API
+* **Explainability-first design** with audit logs and traceability
+* **Zero-cost deployment** using open/free tools
+
+---
+
+## System Architecture
+
+### External Trigger Layer
+
+* n8n workflows monitor regulatory sources (RBI, SEBI, GST, etc.)
+* On detecting a new document:
+  → Sends data to backend API (`/api/analyze`)
+
+---
+
+### Agentic Processing Pipeline
+
+The backend processes each regulation through a sequence of specialized AI agents:
+
+---
+
+### 1. RegulationFetcherAgent
+
+**Role:** Ingestion
+
+* Receives regulation from n8n or mock input
+* Normalizes metadata:
+
+  * Source (RBI, SEBI, etc.)
+  * Timestamp
+  * Document ID
+
+---
+
+### 2. DocumentParserAgent
+
+**Role:** Structuring unstructured data
+
+* Uses Gemini to extract:
+
+  * Title
+  * Effective date
+  * Key clauses
+* Converts raw text → structured JSON
+
+---
+
+### 3. RelevanceImpactAgent
+
+**Role:** Contextual intelligence
+
+* Matches regulation against company profile
+* Outputs:
+
+  * AI summary
+  * Affected departments
+  * Risk score (High / Medium / Low)
+  * Cost of inaction vs cost of compliance
+
+---
+
+### 4. ComplianceGapAgent
+
+**Role:** Core reasoning engine
+
+* Compares:
+
+  * Regulatory clauses
+  * Company’s existing policies
+* Identifies:
+
+  * Missing compliance areas
+  * Severity of gaps
+  * Deadline risks
+
+---
+
+### 5. PolicyDiffAgent
+
+**Role:** Policy transformation
+
+* Generates updated policy suggestions
+* Produces GitHub-style diff:
+
+  * Additions
+  * Removals
+  * Modifications
+
+---
+
+### 6. ActionPlanAgent
+
+**Role:** Execution planning
+
+* Converts gaps into:
+
+  * Step-by-step tasks
+  * Team assignments (Tech, Legal, Ops)
+  * Deadlines and priorities
+
+---
+
+### 7. AuditLoggerAgent
+
+**Role:** Explainability & compliance trace
+
+* Logs every step:
+
+  * Agent name
+  * Input/output summary
+  * Timestamp
+  * Confidence score
+
+* Enables full traceability for audits and demo transparency
+
+---
+
+## API Layer
+
+### POST /api/analyze
+
+Runs the complete agent pipeline:
+
+Fetch → Parse → Impact → Gap → Diff → Action → Log
+
+Returns:
+
+* Summary
+* Risk score
+* Impact analysis
+* Compliance gaps
+* Policy diff
+* Action plan
+
+---
+
+### GET /api/regulations
+
+* List of detected regulations (for Intelligence Feed)
+
+---
+
+### GET /api/regulation/{id}
+
+* Detailed analysis for a specific regulation
+
+---
+
+### GET /api/compliance
+
+* Compliance register data (status, progress, owners)
+
+---
+
+### GET /api/audit-logs
+
+* Full agent activity log
+
+---
+
+## Data Handling
+
+* In-memory storage (Python dicts/lists)
+* No database required for demo
+* Mock company policy used for comparison
+
+---
+
+## AI Integration
+
+* Model: Gemini (gemini-2.5-flash)
+* Used across all reasoning agents
+* Structured JSON responses enforced via prompt design
+
+---
+
+## Event Flow (End-to-End)
+
+1. n8n detects new RBI circular
+2. Sends document to `/api/analyze`
+3. Backend agents process sequentially
+4. Results stored in memory
+5. Frontend fetches and visualizes insights
+
+---
+
+## Key Capabilities
+
+* Real-time regulation detection (simulated)
+* Context-aware compliance analysis
+* Automated policy transformation
+* Financial impact visualization
+* Cross-agent audit trail
+* End-to-end explainability
+
+---
+
+## Demo Readiness
+
+This backend is optimized for hackathon demonstration:
+
+* Uses minimal data but shows full pipeline
+* Produces enterprise-grade outputs
+* Simulates real-time automation
+* Clearly demonstrates agentic AI behavior
+
+---
+
+## Summary
+
+RegWatch backend is not just an API layer — it is an **autonomous compliance intelligence system** that:
+
+* Detects regulatory change
+* Understands its implications
+* Evaluates business impact
+* Identifies compliance gaps
+* Recommends precise actions
+* Logs every decision transparently
+
+This transforms regulatory compliance from a manual, reactive process into an **automated, proactive AI-driven system**.
