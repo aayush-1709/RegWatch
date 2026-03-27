@@ -1,21 +1,267 @@
-Company Policy - Digital Lending (Demo)
+RegWatch Demo Company Policy
+Entity: FinNova Capital Services Pvt. Ltd.
+Business Type: NBFC providing digital lending services in India
+Policy Version: 2.8
+Effective Date: 01-Apr-2025
+Review Cycle: Quarterly
+Policy Owner: Chief Compliance Officer
 
-1) Loan Limits
-- Maximum loan amount allowed per borrower: Rs 5,00,000
-- Loans above Rs 3,00,000 require manual approval
+----------------------------------------------------------------------
+SECTION 1: POLICY OBJECTIVE
+----------------------------------------------------------------------
+This document establishes operating standards for end-to-end digital
+lending operations, including customer onboarding, credit underwriting,
+loan disbursal, collections, complaints, audit traceability, and
+regulatory compliance controls. The objective is to ensure consistent,
+safe, and legally compliant lending while balancing customer experience,
+portfolio quality, and operational efficiency.
 
-2) KYC Process
-- Aadhaar OTP-based eKYC is used for onboarding
-- No mandatory video KYC workflow is configured
+----------------------------------------------------------------------
+SECTION 2: APPLICABILITY
+----------------------------------------------------------------------
+2.1 This policy applies to:
+- Retail lending products originated through web and mobile channels.
+- Partner-assisted digital lending journeys.
+- Co-lending and sourcing arrangements where FinNova is lender of record.
+- Internal teams: Product, Engineering, Operations, Risk, Compliance, Legal,
+  Customer Support, Collections, and Internal Audit.
 
-3) Interest and Pricing
-- Standard annual interest rate configured at 24%
-- Risk-based pricing exceptions are not enabled
+2.2 This policy does not apply to:
+- Corporate term loans.
+- Secured lending products managed by a separate credit team.
+- Internal employee lending programs.
 
-4) Compliance Operations
-- Regulatory updates are reviewed weekly by compliance team
-- Engineering changes are released in a bi-weekly sprint cycle
+----------------------------------------------------------------------
+SECTION 3: CUSTOMER ELIGIBILITY
+----------------------------------------------------------------------
+3.1 Minimum Age: 21 years
+3.2 Maximum Age at Loan Maturity: 60 years
+3.3 Minimum monthly income threshold: INR 18,000
+3.4 Eligible geographies: PAN-India except blacklisted pin codes.
+3.5 High-risk occupations require enhanced manual review.
+3.6 Politically Exposed Persons (PEP) are subject to enhanced due diligence.
 
-5) Customer Communication
-- Key loan terms are shared via email and app notification
-- Vernacular communication support is currently partial
+----------------------------------------------------------------------
+SECTION 4: LOAN LIMITS AND PRODUCT STRUCTURE
+----------------------------------------------------------------------
+4.1 Maximum loan amount currently supported: INR 5,00,000 per borrower.
+4.2 Standard ticket-size bands:
+- Band A: INR 10,000 to INR 50,000
+- Band B: INR 50,001 to INR 2,00,000
+- Band C: INR 2,00,001 to INR 5,00,000
+4.3 Tenure range: 3 to 36 months.
+4.4 Loans above INR 3,00,000 require additional manual approval from
+    Senior Credit Analyst.
+4.5 Repeat borrowers may receive an uplift of up to 20% based on repayment
+    behavior and internal score.
+
+----------------------------------------------------------------------
+SECTION 5: ONBOARDING AND KYC
+----------------------------------------------------------------------
+5.1 Primary KYC workflow:
+- PAN validation through approved KRA.
+- Aadhaar OTP-based eKYC for identity verification.
+- Name and DOB matching checks.
+
+5.2 Address verification:
+- Self-declared address accepted for loans up to INR 1,00,000.
+- Utility bill or equivalent required above INR 1,00,000.
+
+5.3 Bank account verification:
+- Penny drop verification required for first-time borrowers.
+- Name match threshold minimum: 80%.
+
+5.4 Video KYC:
+- Video KYC is optional and currently performed only for random quality
+  checks and fraud investigations.
+- No mandatory video KYC trigger exists in production workflow today.
+
+5.5 KYC refresh:
+- Triggered every 24 months or upon significant profile change.
+
+----------------------------------------------------------------------
+SECTION 6: CREDIT ASSESSMENT AND UNDERWRITING
+----------------------------------------------------------------------
+6.1 Underwriting model inputs:
+- Bureau score
+- Internal behavioral score
+- Banking transaction features
+- Device and fraud risk signals
+- Employment and income stability indicators
+
+6.2 Rejection conditions:
+- Fraud score above threshold
+- Identity mismatch unresolved within 72 hours
+- Adverse bureau tags (as per risk matrix)
+
+6.3 Manual review queue:
+- Loans above INR 2,50,000
+- Bureau thin-file customers
+- High device-risk profiles
+
+6.4 Policy exceptions:
+- Allowed under approved exception matrix and dual authorization.
+- Exception logs retained for internal audit.
+
+----------------------------------------------------------------------
+SECTION 7: PRICING, FEES, AND INTEREST
+----------------------------------------------------------------------
+7.1 Standard annual interest rate: 24% (reducing balance equivalent).
+7.2 Promotional offers may reduce effective rate subject to product
+    committee approval.
+7.3 Processing fee:
+- Up to 2.5% of principal + taxes.
+7.4 Penal charges:
+- Late fee as per product schedule.
+- Bounced payment fee where applicable.
+7.5 APR disclosure is mandatory in Key Fact Statement.
+7.6 Pricing changes require Compliance and Risk sign-off.
+
+----------------------------------------------------------------------
+SECTION 8: DISCLOSURES AND CUSTOMER COMMUNICATION
+----------------------------------------------------------------------
+8.1 Mandatory customer disclosures:
+- Principal amount
+- Tenure
+- Interest rate
+- Processing and other fees
+- Repayment schedule
+- Late payment consequences
+
+8.2 Communication channels:
+- Email
+- SMS
+- In-app notification
+
+8.3 Language:
+- English mandatory.
+- Regional language support available for selected customer segments only.
+
+8.4 Key Fact Statement:
+- Shared before loan acceptance in digital journey.
+
+----------------------------------------------------------------------
+SECTION 9: LOAN AGREEMENT, DISBURSAL, AND REPAYMENT
+----------------------------------------------------------------------
+9.1 E-sign based agreement execution is mandatory.
+9.2 Disbursal is made only to verified borrower-owned account.
+9.3 NACH/e-mandate setup required where available.
+9.4 Repayment reminders are sent at T-3, T-1, and due date.
+9.5 Partial prepayment allowed with product-specific rules.
+
+----------------------------------------------------------------------
+SECTION 10: COLLECTIONS AND CUSTOMER TREATMENT
+----------------------------------------------------------------------
+10.1 Collection outreach channels:
+- Phone
+- Email
+- SMS
+- App push
+
+10.2 Collection conduct principles:
+- No abusive language.
+- No public shaming.
+- Contact only within permitted hours.
+
+10.3 Escalation bands:
+- DPD 1-30: Soft reminder
+- DPD 31-60: Structured follow-up
+- DPD 61+: Legal and recovery workflow
+
+10.4 Vulnerable customer handling:
+- Offer restructuring request intake process.
+
+----------------------------------------------------------------------
+SECTION 11: COMPLAINTS, GRIEVANCE REDRESSAL, AND SUPPORT
+----------------------------------------------------------------------
+11.1 Channels: in-app ticket, email, phone helpline.
+11.2 TAT standards:
+- Level 1 response: within 48 hours
+- Level 2 resolution target: within 7 business days
+11.3 Escalations above SLA are reported to Compliance weekly.
+
+----------------------------------------------------------------------
+SECTION 12: FRAUD RISK MANAGEMENT
+----------------------------------------------------------------------
+12.1 Device intelligence and velocity checks are mandatory.
+12.2 High-risk triggers:
+- SIM swap indicators
+- Multiple accounts from same device fingerprint
+- Synthetic identity suspicion
+12.3 Fraud case management:
+- Immediate block on suspicious disbursals
+- Case triage with Fraud Control Unit
+- Root cause reporting every month
+
+----------------------------------------------------------------------
+SECTION 13: DATA GOVERNANCE, PRIVACY, AND SECURITY
+----------------------------------------------------------------------
+13.1 Data minimization principle is applicable.
+13.2 PII access is role-based and logged.
+13.3 Encryption:
+- Data at rest and in transit must be encrypted.
+13.4 Customer consent records are retained for audit.
+13.5 Vendor access is time-bound and monitored.
+
+----------------------------------------------------------------------
+SECTION 14: THIRD-PARTY AND VENDOR MANAGEMENT
+----------------------------------------------------------------------
+14.1 All critical vendors must undergo due diligence.
+14.2 Contracts must include security, privacy, and confidentiality clauses.
+14.3 Vendor performance and incident reviews are quarterly.
+14.4 Outsourced operations require Compliance oversight.
+
+----------------------------------------------------------------------
+SECTION 15: REGULATORY CHANGE MANAGEMENT
+----------------------------------------------------------------------
+15.1 Compliance team tracks circulars from RBI, SEBI, GST Council,
+     relevant ministries, and judicial updates.
+15.2 Initial impact assessment is prepared within 3 business days.
+15.3 Implementation plan is jointly owned by Product, Engineering, Legal,
+     and Operations.
+15.4 Regulatory change tracker is reviewed in weekly governance meeting.
+
+----------------------------------------------------------------------
+SECTION 16: TRAINING AND AWARENESS
+----------------------------------------------------------------------
+16.1 Mandatory induction training for all customer-facing roles.
+16.2 Quarterly refresher for compliance-critical teams.
+16.3 Assessment pass threshold: 80%.
+
+----------------------------------------------------------------------
+SECTION 17: INTERNAL CONTROLS AND AUDIT
+----------------------------------------------------------------------
+17.1 Maker-checker controls for policy and configuration changes.
+17.2 Production pricing config changes require dual approval.
+17.3 Internal audit performs control testing at least twice yearly.
+17.4 Non-conformities require corrective action plans and closure evidence.
+
+----------------------------------------------------------------------
+SECTION 18: RECORD RETENTION
+----------------------------------------------------------------------
+18.1 KYC records retained as per applicable regulatory retention standards.
+18.2 Loan agreements, repayment records, and communication logs are retained
+     for internal and external audit requirements.
+18.3 Audit logs from critical AI decision points are retained for review.
+
+----------------------------------------------------------------------
+SECTION 19: GOVERNANCE AND POLICY EXCEPTIONS
+----------------------------------------------------------------------
+19.1 Any deviation from this policy requires documented approval.
+19.2 Exception approval matrix:
+- Tech Lead + Risk Lead for technical controls
+- Compliance Lead + Legal Counsel for regulatory interpretations
+- Business Head for commercial exceptions
+
+----------------------------------------------------------------------
+SECTION 20: KNOWN CURRENT LIMITATIONS (FOR DEMO PURPOSES)
+----------------------------------------------------------------------
+20.1 Loan cap in system currently configured to INR 5,00,000.
+20.2 Mandatory video KYC workflow not enabled by default.
+20.3 Pricing engine default still uses 24% annual cap.
+20.4 Regional-language coverage is incomplete for all disclosures.
+20.5 Some vendor audit evidence is manually tracked.
+
+----------------------------------------------------------------------
+END OF POLICY
+----------------------------------------------------------------------

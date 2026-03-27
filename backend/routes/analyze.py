@@ -11,6 +11,8 @@ from agents.impact import analyze_impact
 from agents.parser import parse_regulation
 
 from pathlib import Path
+from datetime import datetime
+from services import app_state
 
 router = APIRouter(tags=["analyze"])
 
@@ -75,8 +77,21 @@ def analyze(payload: AnalyzeRequest) -> dict:
     diff_result = generate_policy_diff(old_policy, new_policy)
     log_action(agent_name="PolicyDiffAgent", action="generate_policy_diff", output=diff_result)
 
+    normalized_diff = {
+        "added_lines": diff_result.get("added_lines", []),
+        "removed_lines": diff_result.get("removed_lines", []),
+        "modified_lines": diff_result.get("modified_lines", []),
+        # keep compatibility with older frontend readers
+        "additions": diff_result.get("added_lines", []),
+        "removals": diff_result.get("removed_lines", []),
+    }
+
+    timeline = [f"{a.get('deadline', 'TBD')}: {a.get('step', '')}" for a in actions if isinstance(a, dict)]
+
     # 7) Return final structured JSON
-    return {
+    response = {
+        "regulation_id": fetched.get("id", ""),
+        "title": parsed.get("title") or fetched.get("title") or "Regulation Analysis",
         "summary": impact.get("summary", ""),
         "risk": impact.get("risk", "HIGH"),
         "impact": {
@@ -85,5 +100,26 @@ def analyze(payload: AnalyzeRequest) -> dict:
         },
         "gaps": gaps,
         "actions": actions,
-        "diff": diff_result,
+        "diff": normalized_diff,
+        "timeline": timeline,
+        "source": fetched.get("source", ""),
+        "timestamp": datetime.utcnow().isoformat() + "Z",
     }
+    app_state.latest_analysis = response
+    app_state.compliance_items = [
+        {
+            "regulation_id": response["regulation_id"],
+            "title": response["title"],
+            "risk": response["risk"],
+            "open_gaps": len([g for g in gaps if str(g.get("severity", "")).upper() in {"HIGH", "MEDIUM"}]),
+            "last_updated": response["timestamp"],
+        }
+    ]
+    return response
+
+
+@router.get("/analyze/latest")
+def latest_analysis() -> dict:
+    if app_state.latest_analysis is None:
+        return {"item": None}
+    return {"item": app_state.latest_analysis}

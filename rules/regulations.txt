@@ -1,0 +1,109 @@
+RegWatch Demo Regulatory Bundle (Long Form)
+Consolidated Feed for Testing
+Version: 2026-Q2
+Issued by: Multi-source regulatory compilation (RBI/SEBI/GST demo)
+
+======================================================================
+REGULATION A: RBI DIGITAL LENDING GUIDELINES AMENDMENT #3
+======================================================================
+Reference: RBI/2026/DL/AMND-03
+Issue Date: 15-Mar-2026
+Effective Date: 30-Jun-2026
+
+1. Scope and Applicability
+1.1 Applies to all NBFCs and regulated entities offering digital lending
+    products directly or via Lending Service Providers (LSPs).
+1.2 Applies to mobile-app-based, web-based, API-based, and embedded lending.
+
+2. Loan Limits
+2.1 Maximum permissible unsecured loan exposure per eligible retail borrower
+    is increased to INR 10,00,000 subject to lender underwriting policy.
+2.2 Internal system validation must enforce cap checks prior to sanction.
+2.3 Any breach of limit controls must trigger hard stop and compliance alert.
+
+3. KYC and Identity Controls
+3.1 Mandatory video KYC is required for all sanction amounts above INR 2,00,000.
+3.2 Video KYC must include:
+- live agent interaction
+- liveness checks
+- face-to-ID match capture
+- session evidence storage for audit
+3.3 Lenders must maintain a verifiable chain of identity proof records.
+
+4. Pricing and Interest Cap
+4.1 Maximum annualized interest cap for covered products is reduced to 21%.
+4.2 Pricing engines must block sanction if computed rate exceeds allowed cap.
+4.3 Charges and fees must be transparently disclosed before borrower consent.
+
+5. Customer Disclosure and Fair Practices
+5.1 Key Fact Statement must include:
+- principal
+- tenure
+- annualized interest rate
+- all fees and charges
+- total repayment amount
+5.2 Borrowers must receive disclosures in accessible digital format.
+5.3 No dark-pattern consent flow is permitted.
+
+6. Data, Consent, and Auditability
+6.1 Borrower consent must be explicit, granular, and logged.
+6.2 Critical credit decisions must be traceable with timestamped logs.
+6.3 Data sharing with third parties requires documented lawful basis.
+
+7. Governance
+7.1 Compliance owner must submit implementation readiness note to board/audit
+    committee.
+7.2 Internal audit must test controls within one quarter of effective date.
+
+8. Non-Compliance Consequences
+8.1 Monetary penalties and supervisory action may be initiated for persistent
+    non-compliance.
+8.2 Repeat breaches may lead to product-level restrictions.
+
+======================================================================
+REGULATION B: SEBI DISCLOSURE FRAMEWORK UPDATE (DEMO)
+======================================================================
+Reference: SEBI/CFD/2026/DISC-11
+Issue Date: 22-Mar-2026
+Effective Date: 01-Jul-2026
+
+1. Material event disclosures must be filed within revised timelines.
+2. Related-party transaction disclosures require enhanced granularity.
+3. Board-approved governance exceptions must be documented and published.
+4. Delay in disclosures may attract monetary and administrative penalties.
+
+======================================================================
+REGULATION C: GST DIGITAL COMPLIANCE ADVISORY (DEMO)
+======================================================================
+Reference: GSTC/ADV/2026/DF-04
+Issue Date: 05-Apr-2026
+Effective Date: 01-Aug-2026
+
+1. Digital financial service invoicing metadata must follow updated schema.
+2. Reconciliation cycles shortened for selected entities.
+3. Reporting inconsistency thresholds tightened for high-volume institutions.
+
+======================================================================
+IMPLEMENTATION EXPECTATIONS (CONSOLIDATED)
+======================================================================
+The regulated entity is expected to:
+- perform impact assessment across business, technology, legal, operations.
+- complete gap remediation before effective dates.
+- maintain audit evidence for design and operating effectiveness of controls.
+- establish exception handling and escalation governance.
+- provide customer-facing transparency for pricing, consent, and redressal.
+
+======================================================================
+CHECKLIST FOR INTERNAL TESTING
+======================================================================
+Use this document to test:
+1) parser extraction of title/effective date/clauses
+2) impact analysis output quality and risk rating
+3) gap detection against company policy
+4) action-plan generation quality (team assignment, deadlines)
+5) policy diff generation and change traceability
+6) audit log sequence and confidence outputs
+
+======================================================================
+END OF REGULATORY TEST DATA
+======================================================================

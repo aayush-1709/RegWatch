@@ -13,6 +13,7 @@ interface RegulationItem {
   title: string
   source: string
   detected_at: string
+  risk?: string
 }
 
 function getSourceColor(source: string): string {
@@ -37,13 +38,23 @@ export function IntelligenceFeed() {
   useEffect(() => {
     const load = async () => {
       try {
-        const data = await apiGet<{ items: Array<{ id: string; title: string; metadata: { source: string; detected_at: string } }> }>("/api/regulations")
+        const data = await apiGet<{
+          items: Array<{
+            id: string
+            title: string
+            source?: string
+            risk?: string
+            timestamp?: string
+            metadata?: { source?: string; detected_at?: string }
+          }>
+        }>("/api/regulations")
         setItems(
           data.items.map((item) => ({
             id: item.id,
             title: item.title,
-            source: item.metadata?.source || "Unknown",
-            detected_at: item.metadata?.detected_at || "",
+            source: item.source || item.metadata?.source || "Unknown",
+            detected_at: item.timestamp || item.metadata?.detected_at || "",
+            risk: item.risk || "MEDIUM",
           }))
         )
       } catch {
@@ -88,6 +99,9 @@ export function IntelligenceFeed() {
                     <div className="flex items-center gap-2">
                       <Badge variant="outline" className={cn("text-[10px] px-2 py-0.5", getSourceColor(item.source))}>
                         {item.source}
+                      </Badge>
+                      <Badge variant="outline" className="text-[10px] px-2 py-0.5">
+                        {item.risk || "MEDIUM"}
                       </Badge>
                     </div>
                     <div className="text-[10px] text-muted-foreground">

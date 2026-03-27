@@ -7,4 +7,5 @@ router = APIRouter(tags=["audit"])
 
 @router.get("/audit-logs")
 def audit_logs() -> dict:
-    return {"items": get_logs()}
+    logs = get_logs()
+    return {"items": list(reversed(logs))}

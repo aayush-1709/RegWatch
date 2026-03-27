@@ -11,6 +11,7 @@ import {
   ClipboardList,
   Network,
   ScrollText,
+  Landmark,
   Sparkles,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -24,6 +25,7 @@ const navigation = [
   { name: "Policy Diff Viewer", href: "/diff", icon: GitCompare },
   { name: "Compliance Register", href: "/compliance", icon: ClipboardList },
   { name: "Conflict Map", href: "/conflicts", icon: Network },
+  { name: "Regulator Updates", href: "/updates", icon: Landmark },
   { name: "Audit Logs", href: "/audit", icon: ScrollText },
 ]
 

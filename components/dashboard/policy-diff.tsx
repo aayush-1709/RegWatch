@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { apiGet } from "@/lib/api"
 
 interface DiffLine {
   type: "added" | "removed" | "unchanged"
@@ -17,20 +18,20 @@ export function PolicyDiff() {
   const [diff, setDiff] = useState<{ additions: string[]; removals: string[] }>({ additions: [], removals: [] })
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("regwatch:lastAnalysis")
-      if (!raw) {
-        setDiff({ additions: [], removals: [] })
-        return
-      }
-      const data = JSON.parse(raw) as { diff?: { additions?: string[]; removals?: string[] } }
+    const load = async () => {
+      try {
+        const data = await apiGet<{
+          item?: { diff?: { additions?: string[]; removals?: string[]; added_lines?: string[]; removed_lines?: string[] } }
+        }>("/api/analyze/latest")
       setDiff({
-        additions: data.diff?.additions || [],
-        removals: data.diff?.removals || [],
+          additions: data.item?.diff?.additions || data.item?.diff?.added_lines || [],
+          removals: data.item?.diff?.removals || data.item?.diff?.removed_lines || [],
       })
-    } catch {
-      setDiff({ additions: [], removals: [] })
+      } catch {
+        setDiff({ additions: [], removals: [] })
+      }
     }
+    load()
   }, [])
 
   const diffContent = useMemo<DiffLine[]>(() => {

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { DashboardLayout } from "@/components/dashboard-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { apiGet } from "@/lib/api"
 
 interface GapItem {
   clause: string
@@ -14,17 +15,16 @@ export default function ConflictMapPage() {
   const [gaps, setGaps] = useState<GapItem[]>([])
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("regwatch:lastAnalysis")
-      if (!raw) {
+    const load = async () => {
+      try {
+        const parsed = await apiGet<{ item?: { gaps?: GapItem[] } }>("/api/analyze/latest")
+        const items = parsed.item?.gaps || []
+        setGaps(items)
+      } catch {
         setGaps([])
-        return
       }
-      const parsed = JSON.parse(raw) as { gaps?: GapItem[] }
-      setGaps(parsed.gaps || [])
-    } catch {
-      setGaps([])
     }
+    load()
   }, [])
 
   const grouped = useMemo(() => {

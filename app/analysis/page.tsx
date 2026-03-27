@@ -5,13 +5,14 @@ import { DashboardLayout } from "@/components/dashboard-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { apiPost } from "@/lib/api"
+import { apiGet, apiPost } from "@/lib/api"
+import { useEffect } from "react"
 
 interface AnalysisData {
   title: string
   summary: string
   risk: string
-  timeline: string[]
+  timeline?: string[]
   gaps: Array<{ clause: string; gap: string; severity: string }>
   actions: Array<{ step: string; team: string; deadline: string }>
   diff?: { additions?: string[]; removals?: string[]; modified_lines?: string[] }
@@ -30,12 +31,43 @@ export default function AnalysisPage() {
         regulation_text: regulationText || undefined,
         company_policy_text: policyText || undefined,
       })
-      setData(result)
-      localStorage.setItem("regwatch:lastAnalysis", JSON.stringify(result))
+      const normalized: AnalysisData = {
+        title: result?.title || "Regulation Analysis",
+        summary: result?.summary || "",
+        risk: result?.risk || "UNKNOWN",
+        timeline: Array.isArray(result?.timeline) ? result.timeline : [],
+        gaps: Array.isArray(result?.gaps) ? result.gaps : [],
+        actions: Array.isArray(result?.actions) ? result.actions : [],
+        diff: result?.diff || {},
+      }
+      setData(normalized)
     } finally {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    const loadLatest = async () => {
+      try {
+        const latest = await apiGet<{ item?: AnalysisData }>("/api/analyze/latest")
+        if (latest.item) {
+          const item = latest.item
+          setData({
+            title: item.title || "Regulation Analysis",
+            summary: item.summary || "",
+            risk: item.risk || "UNKNOWN",
+            timeline: Array.isArray(item.timeline) ? item.timeline : [],
+            gaps: Array.isArray(item.gaps) ? item.gaps : [],
+            actions: Array.isArray(item.actions) ? item.actions : [],
+            diff: item.diff || {},
+          })
+        }
+      } catch {
+        // No latest analysis yet.
+      }
+    }
+    loadLatest()
+  }, [])
 
   return (
     <DashboardLayout>
@@ -86,7 +118,13 @@ export default function AnalysisPage() {
             <Card>
               <CardHeader><CardTitle>Timeline</CardTitle></CardHeader>
               <CardContent className="space-y-2">
-                {data.timeline.map((item, idx) => <p key={idx} className="text-sm">{item}</p>)}
+                {(data.timeline ?? []).length === 0 ? (
+                  <p className="text-sm text-muted-foreground">No timeline generated.</p>
+                ) : (
+                  (data.timeline ?? []).map((item, idx) => (
+                    <p key={idx} className="text-sm">{item}</p>
+                  ))
+                )}
               </CardContent>
             </Card>
           </div>

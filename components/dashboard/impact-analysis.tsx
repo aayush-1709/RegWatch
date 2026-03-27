@@ -3,26 +3,24 @@
 import { useEffect, useState } from "react"
 import { TrendingDown, TrendingUp } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { apiGet } from "@/lib/api"
 
 export function ImpactAnalysis() {
   const [inactionCost, setInactionCost] = useState("-")
   const [complianceCost, setComplianceCost] = useState("-")
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("regwatch:lastAnalysis")
-      if (!raw) {
+    const load = async () => {
+      try {
+        const data = await apiGet<{ item?: { impact?: { cost_of_inaction?: string; cost_of_compliance?: string } } }>("/api/analyze/latest")
+        setInactionCost(data.item?.impact?.cost_of_inaction || "-")
+        setComplianceCost(data.item?.impact?.cost_of_compliance || "-")
+      } catch {
         setInactionCost("-")
         setComplianceCost("-")
-        return
       }
-      const data = JSON.parse(raw) as { impact?: { cost_of_inaction?: string; cost_of_compliance?: string } }
-      setInactionCost(data.impact?.cost_of_inaction || "-")
-      setComplianceCost(data.impact?.cost_of_compliance || "-")
-    } catch {
-      setInactionCost("-")
-      setComplianceCost("-")
     }
+    load()
   }, [])
 
   return (

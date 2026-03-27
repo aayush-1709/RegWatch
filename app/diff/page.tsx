@@ -3,12 +3,17 @@
 import { useEffect, useState } from "react"
 import { DashboardLayout } from "@/components/dashboard-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { apiGet } from "@/lib/api"
 
 interface DiffData {
-  diff?: {
-    additions?: string[]
-    removals?: string[]
-    modified_lines?: string[]
+  item?: {
+    diff?: {
+      additions?: string[]
+      removals?: string[]
+      added_lines?: string[]
+      removed_lines?: string[]
+      modified_lines?: string[]
+    }
   }
 }
 
@@ -16,17 +21,24 @@ export default function DiffPage() {
   const [data, setData] = useState<DiffData["diff"] | null>(null)
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("regwatch:lastAnalysis")
-      if (!raw) {
+    const load = async () => {
+      try {
+        const parsed = await apiGet<DiffData>("/api/analyze/latest")
+        const next = parsed.item?.diff
+        if (!next) {
+          setData(null)
+          return
+        }
+        setData({
+          additions: next.additions || next.added_lines || [],
+          removals: next.removals || next.removed_lines || [],
+          modified_lines: next.modified_lines || [],
+        })
+      } catch {
         setData(null)
-        return
       }
-      const parsed = JSON.parse(raw) as DiffData
-      setData(parsed.diff || null)
-    } catch {
-      setData(null)
     }
+    load()
   }, [])
 
   return (
